@@ -9,8 +9,8 @@ logger = logging.getLogger(__name__)
 
 class GoogleGeminiProvider(BaseLLMProvider):
     def __init__(self, api_key: Optional[str] = None, model_name: Optional[str] = None):
-        self.api_key = api_key or settings.GEMINI_API_KEY
-        self.model_name = model_name or settings.GEMINI_MODEL or "gemini-1.5-flash"
+        self.api_key = settings.GEMINI_API_KEY if api_key is None else api_key
+        self.model_name = model_name or settings.GEMINI_MODEL or "gemini-3.8-flash"
         self._client = None
         self._init_client()
 
