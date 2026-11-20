@@ -1,0 +1,842 @@
+[
+  {
+    "text": "Operating profit rose by 14% to EUR 12.3 million from EUR 10.8 million in the previous period.",
+    "label": "positive"
+  },
+  {
+    "text": "The company expects net sales to double in the fiscal year due to strong European customer demand.",
+    "label": "positive"
+  },
+  {
+    "text": "Net interest income increased by 22% while credit costs declined to historical lows.",
+    "label": "positive"
+  },
+  {
+    "text": "Earnings per share grew 18% beating consensus analyst expectations by 45 basis points.",
+    "label": "positive"
+  },
+  {
+    "text": "Gross non-performing loans dropped by 40 basis points indicating significant asset quality recovery.",
+    "label": "positive"
+  },
+  {
+    "text": "Reliance New Energy commissioned an additional 1 GW solar module manufacturing capacity ahead of schedule.",
+    "label": "positive"
+  },
+  {
+    "text": "TCS secured a multi-year digital transformation deal exceeding $1.2B with a premier European financial group.",
+    "label": "positive"
+  },
+  {
+    "text": "State Bank of India Q2 net profit jumped 28% YoY to Rs 18,331 crore driven by healthy loan growth.",
+    "label": "positive"
+  },
+  {
+    "text": "Tata Motors EV division achieved a positive EBITDA margin of 4.2% as new model deliveries accelerated.",
+    "label": "positive"
+  },
+  {
+    "text": "Wipro signed an expansive $500M enterprise communications transformation agreement with a US carrier.",
+    "label": "positive"
+  },
+  {
+    "text": "Sun Pharma received US FDA approval with priority review for its innovative psoriasis injectable.",
+    "label": "positive"
+  },
+  {
+    "text": "Larsen & Toubro won mega offshore energy packages in the Middle East valued at over Rs 15,000 crore.",
+    "label": "positive"
+  },
+  {
+    "text": "Hindustan Unilever rural demand volumes rebounded 5.4% YoY following bumper agricultural harvests.",
+    "label": "positive"
+  },
+  {
+    "text": "Maruti Suzuki hybrid powertrain deliveries crossed 100,000 units capturing 46% domestic hybrid share.",
+    "label": "positive"
+  },
+  {
+    "text": "Mahindra & Mahindra auto sales surged 25% YoY to record 96,648 units led by strong SUV demand.",
+    "label": "positive"
+  },
+  {
+    "text": "Cipla launched direct commercial rollout of its generic respiratory inhalation therapy across Europe.",
+    "label": "positive"
+  },
+  {
+    "text": "Gross GST collections touched Rs 1.87 lakh crore in October recording buoyant 8.9% YoY growth.",
+    "label": "positive"
+  },
+  {
+    "text": "HDFC Bank posted solid operational metrics with gross advances expanding 17% year-on-year.",
+    "label": "positive"
+  },
+  {
+    "text": "ICICI Bank reported retail deposits expansion of 19% YoY with provisioning coverage exceeding 81%.",
+    "label": "positive"
+  },
+  {
+    "text": "Consolidated revenue increased by 31.2% to Rs 4,520 crore as order bookings hit an all-time high.",
+    "label": "positive"
+  },
+  {
+    "text": "The board approved an interim dividend of Rs 12 per equity share and a share buyback program.",
+    "label": "positive"
+  },
+  {
+    "text": "Operating cash flow reached record highs driven by strong working capital management and inventory turnover.",
+    "label": "positive"
+  },
+  {
+    "text": "The management upgraded full-year revenue growth guidance to 14-16% on robust deal pipeline.",
+    "label": "positive"
+  },
+  {
+    "text": "Export volumes rose 19% as demand from Southeast Asian manufacturing partners strengthened.",
+    "label": "positive"
+  },
+  {
+    "text": "Core operating profit margin expanded by 180 basis points due to manufacturing automation efficiencies.",
+    "label": "positive"
+  },
+  {
+    "text": "The company successfully eliminated long-term bank debt achieving a net cash balance sheet position.",
+    "label": "positive"
+  },
+  {
+    "text": "Domestic institutional investors injected fresh capital driving a powerful broad-based sector rally.",
+    "label": "positive"
+  },
+  {
+    "text": "Retail loan disbursements grew 24% YoY maintaining pristine credit underwriting discipline.",
+    "label": "positive"
+  },
+  {
+    "text": "The airline achieved profitable seat occupancy of 88% while international passenger yields expanded.",
+    "label": "positive"
+  },
+  {
+    "text": "Renewable energy generation output climbed 42% YoY following successful commissioning of wind parks.",
+    "label": "positive"
+  },
+  {
+    "text": "Software subscription annualized recurring revenue surged 35% surpassing analyst forecasts.",
+    "label": "positive"
+  },
+  {
+    "text": "Credit rating agency upgraded the long-term corporate credit rating to AAA with a stable outlook.",
+    "label": "positive"
+  },
+  {
+    "text": "Capital adequacy ratio strengthened to 19.4% providing ample headroom for corporate lending growth.",
+    "label": "positive"
+  },
+  {
+    "text": "The pharmaceutical firm reported positive Phase III clinical trial outcomes with superior efficacy.",
+    "label": "positive"
+  },
+  {
+    "text": "Operating leverage resulted in net income expanding at twice the pace of top-line revenue growth.",
+    "label": "positive"
+  },
+  {
+    "text": "The enterprise signed five new Fortune 500 multi-million dollar software license contracts.",
+    "label": "positive"
+  },
+  {
+    "text": "Commercial vehicle freight utilization levels improved significantly across major transport corridors.",
+    "label": "positive"
+  },
+  {
+    "text": "Steel manufacturer reported record quarterly crude steel production of 5.8 million metric tonnes.",
+    "label": "positive"
+  },
+  {
+    "text": "E-commerce gross merchandise value advanced 28% during festive promotional campaigns.",
+    "label": "positive"
+  },
+  {
+    "text": "Telecommunications ARPU expanded by 7.5% YoY supported by premium subscriber upgrades to 5G tariffs.",
+    "label": "positive"
+  },
+  {
+    "text": "Operating profit improved significantly to EUR 45.2 million from EUR 22.1 million in 2024.",
+    "label": "positive"
+  },
+  {
+    "text": "The acquisition is anticipated to be immediately accretive to operating earnings per share.",
+    "label": "positive"
+  },
+  {
+    "text": "Refining throughput exceeded nameplate design capacity with solid middle distillate crack spreads.",
+    "label": "positive"
+  },
+  {
+    "text": "Cement despatches rose 16% YoY accompanied by healthy realization per bag in Northern markets.",
+    "label": "positive"
+  },
+  {
+    "text": "The infrastructure concessionaire completed highway construction four months ahead of concession timeline.",
+    "label": "positive"
+  },
+  {
+    "text": "Semiconductor design subsidiary turned cash-flow positive after delivering initial prototype orders.",
+    "label": "positive"
+  },
+  {
+    "text": "Foreign direct investment inflows into domestic electronics manufacturing hit a record quarterly high.",
+    "label": "positive"
+  },
+  {
+    "text": "Asset management firm assets under management surpassed Rs 5 lakh crore milestone.",
+    "label": "positive"
+  },
+  {
+    "text": "The company declared a special celebratory bonus share issue in the ratio of 1:1 for shareholders.",
+    "label": "positive"
+  },
+  {
+    "text": "Commercial real estate pre-leasing activity touched an all-time high across Bengaluru and Hyderabad IT hubs.",
+    "label": "positive"
+  },
+  {
+    "text": "Consumer durables distributor witnessed double-digit sales expansion during the Diwali festive season.",
+    "label": "positive"
+  },
+  {
+    "text": "Power utility achieved an all-time high plant load factor of 82.4% during peak summer industrial demand.",
+    "label": "positive"
+  },
+  {
+    "text": "Engineering exports to North America expanded 15% as supply chain diversification gained traction.",
+    "label": "positive"
+  },
+  {
+    "text": "Private equity syndicate completed capital infusion at a 40% premium to the previous funding valuation.",
+    "label": "positive"
+  },
+  {
+    "text": "The company won a landmark court judgment upholding patent exclusivity for its blockbuster formulation.",
+    "label": "positive"
+  },
+  {
+    "text": "Automotive ancillary manufacturer secured long-term electric drive axle supply contracts with European OEMs.",
+    "label": "positive"
+  },
+  {
+    "text": "Chemical manufacturer commissioned specialized fluorochemicals plant expanding export gross margins.",
+    "label": "positive"
+  },
+  {
+    "text": "Life insurer registered a 21% jump in annualized premium equivalent driven by high-ticket protection policies.",
+    "label": "positive"
+  },
+  {
+    "text": "Logistics provider reported a 32% drop in fleet transit turnaround times through route optimization software.",
+    "label": "positive"
+  },
+  {
+    "text": "Hospital chain recorded 14% revenue growth alongside 220 basis points EBITDA margin expansion.",
+    "label": "positive"
+  },
+  {
+    "text": "Agricultural equipment manufacturer reported resilient farm tractor demand across northern grain belts.",
+    "label": "positive"
+  },
+  {
+    "text": "Mining conglomerate boosted commercial copper cathode production by 18% meeting rising EV demand.",
+    "label": "positive"
+  },
+  {
+    "text": "Financial services technology firm reported record free cash flow generation and zero leverage.",
+    "label": "positive"
+  },
+  {
+    "text": "Hotel business posted record average room rates and revenue per available room across luxury resorts.",
+    "label": "positive"
+  },
+  {
+    "text": "Defense contractor secured domestic naval frigate modernization orders worth Rs 7,200 crore.",
+    "label": "positive"
+  },
+  {
+    "text": "Battery manufacturing unit qualified for national production-linked incentive disbursements.",
+    "label": "positive"
+  },
+  {
+    "text": "Clean technology venture secured sovereign green bond financing at highly competitive benchmark yields.",
+    "label": "positive"
+  },
+  {
+    "text": "Specialty chemicals company saw export volumes rebound by 26% after destocking headwinds abated.",
+    "label": "positive"
+  },
+  {
+    "text": "Data center infrastructure subsidiary reached 95% contracted capacity across newly launched facilities.",
+    "label": "positive"
+  },
+  {
+    "text": "Retail apparel chain added 65 profitable standalone brand stores during the first half of the fiscal year.",
+    "label": "positive"
+  },
+  {
+    "text": "Operating loss widened to EUR 4.2 million compared to EUR 1.5 million in the prior year quarter.",
+    "label": "negative"
+  },
+  {
+    "text": "Revenues decreased by 8% as demand for industrial components slowed down in key markets.",
+    "label": "negative"
+  },
+  {
+    "text": "Higher raw material prices and logistics disruptions severely compressed operating EBITDA margins.",
+    "label": "negative"
+  },
+  {
+    "text": "The division initiated workforce reductions and plant closures following continuous unprofitable quarters.",
+    "label": "negative"
+  },
+  {
+    "text": "Credit rating agency downgraded the corporate bond rating to junk status citing refinancing risks.",
+    "label": "negative"
+  },
+  {
+    "text": "Crude oil volatility and rising US dollar index exert mild pressure on Indian rupee and OMC margins.",
+    "label": "negative"
+  },
+  {
+    "text": "TCS client decision cycles remain elongated in financial services segment despite deal pipeline expansion.",
+    "label": "negative"
+  },
+  {
+    "text": "ITC agribusiness and paperboards face margin compression due to surging pulp wood and wheat prices.",
+    "label": "negative"
+  },
+  {
+    "text": "Net profit dropped 34% YoY as provisions for non-performing retail loans escalated sharply.",
+    "label": "negative"
+  },
+  {
+    "text": "The company reported a consolidated net loss of Rs 840 crore following significant asset impairment charges.",
+    "label": "negative"
+  },
+  {
+    "text": "Supply chain bottlenecks forced temporary assembly plant shutdowns across three major manufacturing hubs.",
+    "label": "negative"
+  },
+  {
+    "text": "Export sales declined by 18% as key overseas markets entered a technical manufacturing recession.",
+    "label": "negative"
+  },
+  {
+    "text": "Operating margins contracted by 320 basis points due to elevated energy tariffs and freight expenses.",
+    "label": "negative"
+  },
+  {
+    "text": "The bank witnessed an unexpected surge in delinquent agricultural loans following widespread regional floods.",
+    "label": "negative"
+  },
+  {
+    "text": "Management cut full-year revenue growth guidance to flat citing customer delays in discretionary IT spend.",
+    "label": "negative"
+  },
+  {
+    "text": "Regulatory authorities imposed a heavy financial penalty for non-compliance with market disclosure rules.",
+    "label": "negative"
+  },
+  {
+    "text": "The chemical producer suffered severe margin compression as cheap imports flooded the domestic market.",
+    "label": "negative"
+  },
+  {
+    "text": "Automobile retail sales slumped 12% in the off-season as high financing rates deterred budget buyers.",
+    "label": "negative"
+  },
+  {
+    "text": "Foreign institutional investors staged relentless equity outflows selling Rs 14,000 crore in cash segment.",
+    "label": "negative"
+  },
+  {
+    "text": "A catastrophic fire at the subsidiary's primary manufacturing unit disrupted commercial shipments.",
+    "label": "negative"
+  },
+  {
+    "text": "The enterprise defaulted on its quarterly coupon payment on offshore senior convertible notes.",
+    "label": "negative"
+  },
+  {
+    "text": "Operating expenses surged 45% YoY outpacing top-line growth and severely eroding net earnings.",
+    "label": "negative"
+  },
+  {
+    "text": "Semiconductor chip shortages constrained vehicle production lines leading to extended dealership backlogs.",
+    "label": "negative"
+  },
+  {
+    "text": "The central bank initiated a supervisory probe into the lender's digital lending partnerships.",
+    "label": "negative"
+  },
+  {
+    "text": "Consumer goods distributor reported a 15% fall in quarterly volume sales amid persistent food inflation.",
+    "label": "negative"
+  },
+  {
+    "text": "The pharmaceutical firm received an adverse inspection report with multiple Form 483 observations from US FDA.",
+    "label": "negative"
+  },
+  {
+    "text": "Steel producers faced steep margin erosion as benchmark hot-rolled coil prices slumped to multi-year lows.",
+    "label": "negative"
+  },
+  {
+    "text": "Textile export orders dried up by 25% following consumer demand slowdown across European retail chains.",
+    "label": "negative"
+  },
+  {
+    "text": "A critical intellectual property lawsuit resulted in an injunction prohibiting domestic product sales.",
+    "label": "negative"
+  },
+  {
+    "text": "The infrastructure developer faced severe liquidity constraints as working capital debt piled up.",
+    "label": "negative"
+  },
+  {
+    "text": "Gross non-performing assets ratio deteriorated to 6.8% requiring massive emergency capital provisioning.",
+    "label": "negative"
+  },
+  {
+    "text": "Shipping freight rates skyrocketed adding substantial cost overheads to international container shipments.",
+    "label": "negative"
+  },
+  {
+    "text": "The board cancelled the proposed dividend distribution to preserve dwindling liquidity reserves.",
+    "label": "negative"
+  },
+  {
+    "text": "Refining margins turned negative in the quarter due to weak gasoline crack spreads and inventory losses.",
+    "label": "negative"
+  },
+  {
+    "text": "Retail footfalls across shopping malls dropped 14% as inflationary pressures squeezed household budgets.",
+    "label": "negative"
+  },
+  {
+    "text": "The real estate company failed to secure debt refinancing for maturing commercial paper obligations.",
+    "label": "negative"
+  },
+  {
+    "text": "A major international client abruptly terminated a $120M multi-year business process outsourcing contract.",
+    "label": "negative"
+  },
+  {
+    "text": "Operating cash flow turned negative due to severe customer payment delays and mounting trade receivables.",
+    "label": "negative"
+  },
+  {
+    "text": "The airline grounded twelve aircraft following ongoing engine supply delays and maintenance issues.",
+    "label": "negative"
+  },
+  {
+    "text": "Mining operations were halted following environmental regulatory stop-work notices.",
+    "label": "negative"
+  },
+  {
+    "text": "Hospital chain experienced margin contraction due to high doctor attrition and escalated diagnostic costs.",
+    "label": "negative"
+  },
+  {
+    "text": "The power distribution utility accumulated tariff regulatory assets creating persistent balance sheet strain.",
+    "label": "negative"
+  },
+  {
+    "text": "Specialty chemicals manufacturer reported a 42% plunge in operating profit due to channel inventory destocking.",
+    "label": "negative"
+  },
+  {
+    "text": "Fertilizer manufacturer experienced delayed government subsidy disbursements pressuring short-term borrowing costs.",
+    "label": "negative"
+  },
+  {
+    "text": "The technology startup announced a 30% workforce layoff after failing to secure Series C funding.",
+    "label": "negative"
+  },
+  {
+    "text": "Credit rating agency placed long-term debt instruments on credit watch with negative implications.",
+    "label": "negative"
+  },
+  {
+    "text": "Automotive tier-1 supplier experienced contract cancellations following OEM vehicle model phase-outs.",
+    "label": "negative"
+  },
+  {
+    "text": "Higher interest expenses reduced profit before tax by 28% despite moderate top-line volume gains.",
+    "label": "negative"
+  },
+  {
+    "text": "Packaging division experienced customer pushback against proposed price hikes amid cheaper alternative materials.",
+    "label": "negative"
+  },
+  {
+    "text": "The company wrote down EUR 18.5 million in goodwill related to its underperforming Scandinavian acquisition.",
+    "label": "negative"
+  },
+  {
+    "text": "Apparel retailer suffered severe margin erosion from deep discounting required to clear unsold winter inventory.",
+    "label": "negative"
+  },
+  {
+    "text": "The telecom provider reported continuous subscriber churn to competitors following network reliability complaints.",
+    "label": "negative"
+  },
+  {
+    "text": "Corporate governance allegations and auditor resignation triggered a 22% sell-off in company shares.",
+    "label": "negative"
+  },
+  {
+    "text": "Commercial vehicle demand dropped sharply following regulatory axing of legacy fleet vehicle operations.",
+    "label": "negative"
+  },
+  {
+    "text": "The cement manufacturer reported operating losses in southern markets due to intense price competition.",
+    "label": "negative"
+  },
+  {
+    "text": "A severe drought across agricultural belts dampened farm tractor sales and microfinance collections.",
+    "label": "negative"
+  },
+  {
+    "text": "The microfinance lender experienced a sharp escalation in 90+ days past due portfolio delinquencies.",
+    "label": "negative"
+  },
+  {
+    "text": "Severe foreign exchange depreciation incurred heavy mark-to-market currency losses on unhedged dollar debt.",
+    "label": "negative"
+  },
+  {
+    "text": "The solar EPC contractor faced liquidated damages penalties due to project grid synchronization delays.",
+    "label": "negative"
+  },
+  {
+    "text": "Logistics provider reported higher fleet maintenance and fuel costs eroding operating profit margins.",
+    "label": "negative"
+  },
+  {
+    "text": "Petrochemical plant operating rates were curtailed to 60% due to unremunerative product crack spreads.",
+    "label": "negative"
+  },
+  {
+    "text": "The footwear maker reported sluggish demand and inventory obsolescence write-offs in budget categories.",
+    "label": "negative"
+  },
+  {
+    "text": "Bank suffered deposit outflows as depositors migrated funds toward higher-yielding sovereign treasury bills.",
+    "label": "negative"
+  },
+  {
+    "text": "Industrial machinery builder reported a 30% drop in domestic order intake as capital goods capex paused.",
+    "label": "negative"
+  },
+  {
+    "text": "The tea plantation operator suffered crop losses and wage inflation driving pre-tax operational deficits.",
+    "label": "negative"
+  },
+  {
+    "text": "High warehouse leasing costs and return logistics expenses pressured e-commerce operating profitability.",
+    "label": "negative"
+  },
+  {
+    "text": "The hotel property incurred renovation delays and cost overruns impacting seasonal tourism cash flows.",
+    "label": "negative"
+  },
+  {
+    "text": "Consumer electronics maker faced severe margin compression from aggressive discounting by overseas rivals.",
+    "label": "negative"
+  },
+  {
+    "text": "Food processing division experienced margin contraction caused by doubling of international edible oil tariffs.",
+    "label": "negative"
+  },
+  {
+    "text": "The company faced tax demand notices with substantial interest penalties contesting past input tax credits.",
+    "label": "negative"
+  },
+  {
+    "text": "The board of directors proposed an unchanged dividend of 0.45 euros per share.",
+    "label": "neutral"
+  },
+  {
+    "text": "Consolidated sales amounted to EUR 240.2 million against EUR 241.0 million in the corresponding period.",
+    "label": "neutral"
+  },
+  {
+    "text": "The acquisition is subject to customary regulatory approvals and is expected to close in Q3.",
+    "label": "neutral"
+  },
+  {
+    "text": "NIFTY 50 consolidates near 24,350 as foreign institutional investors turn net buyers in cash segment.",
+    "label": "neutral"
+  },
+  {
+    "text": "RBI Monetary Policy Committee maintains status quo on repo rate at 6.50%; highlights disinflation priority.",
+    "label": "neutral"
+  },
+  {
+    "text": "The annual general meeting of shareholders will be held in Mumbai on September 15, 2026.",
+    "label": "neutral"
+  },
+  {
+    "text": "The company submitted its quarterly financial compliance filings to the National Stock Exchange.",
+    "label": "neutral"
+  },
+  {
+    "text": "The board appointed an independent non-executive director to the audit committee for a three-year term.",
+    "label": "neutral"
+  },
+  {
+    "text": "Total headcount across engineering and delivery teams stood flat at approximately 124,000 employees.",
+    "label": "neutral"
+  },
+  {
+    "text": "The company announced the redemption date for its maturing non-convertible debentures.",
+    "label": "neutral"
+  },
+  {
+    "text": "Trading in equity shares remained within a narrow range ahead of key macroeconomic data releases.",
+    "label": "neutral"
+  },
+  {
+    "text": "The statutory audit for the financial year was concluded by the appointed chartered accountancy firm.",
+    "label": "neutral"
+  },
+  {
+    "text": "The enterprise reiterated its long-term financial guidance at the annual institutional investor forum.",
+    "label": "neutral"
+  },
+  {
+    "text": "The ministry published the draft policy framework for offshore wind energy leasing rights.",
+    "label": "neutral"
+  },
+  {
+    "text": "The central bank published its scheduled calendar of weekly treasury bill auctions for the quarter.",
+    "label": "neutral"
+  },
+  {
+    "text": "The company registered two new trademark applications with the national intellectual property office.",
+    "label": "neutral"
+  },
+  {
+    "text": "The board scheduled a routine meeting on Friday to review second quarter standalone financial statements.",
+    "label": "neutral"
+  },
+  {
+    "text": "The merger scheme documents were lodged with the National Company Law Tribunal for preliminary examination.",
+    "label": "neutral"
+  },
+  {
+    "text": "The bank maintained its benchmark marginal cost of funds based lending rate unchanged across all tenors.",
+    "label": "neutral"
+  },
+  {
+    "text": "Foreign portfolio investors held approximately 18.4% of total outstanding equity capital at quarter-end.",
+    "label": "neutral"
+  },
+  {
+    "text": "The pharmaceutical company completed Phase I safety pharmacokinetics trials in healthy adult volunteers.",
+    "label": "neutral"
+  },
+  {
+    "text": "The insurance regulator released updated actuarial reserving standards for public consultation.",
+    "label": "neutral"
+  },
+  {
+    "text": "The company renewed its existing commercial office lease agreement for an additional five-year tenure.",
+    "label": "neutral"
+  },
+  {
+    "text": "Total capital expenditure for the ongoing financial year remained in line with previously budgeted guidance.",
+    "label": "neutral"
+  },
+  {
+    "text": "The securities depository processed routine dematerialization requests from institutional custodians.",
+    "label": "neutral"
+  },
+  {
+    "text": "The company confirmed receipt of a routine tax assessment query and will submit documented replies.",
+    "label": "neutral"
+  },
+  {
+    "text": "Shareholder voting on ordinary business resolutions was conducted via postal ballot and electronic voting.",
+    "label": "neutral"
+  },
+  {
+    "text": "The company maintained its standard product warranty terms across consumer durables lines.",
+    "label": "neutral"
+  },
+  {
+    "text": "The statistical office announced that industrial production index data will be published next Tuesday.",
+    "label": "neutral"
+  },
+  {
+    "text": "The telecom provider completed routine spectrum re-farming across two regional service areas.",
+    "label": "neutral"
+  },
+  {
+    "text": "The board reconstituted its corporate social responsibility committee in compliance with regulations.",
+    "label": "neutral"
+  },
+  {
+    "text": "The logistics operator took delivery of 40 replacement commercial trucks under its fleet renewal cycle.",
+    "label": "neutral"
+  },
+  {
+    "text": "The rating agency affirmed existing ratings of BBB+ on senior secured notes with neutral outlook.",
+    "label": "neutral"
+  },
+  {
+    "text": "The company published its annual environmental and sustainability governance disclosures.",
+    "label": "neutral"
+  },
+  {
+    "text": "Domestic equity markets will observe a scheduled trading holiday on Friday for national celebrations.",
+    "label": "neutral"
+  },
+  {
+    "text": "The bank opened three new branch locations in commercial districts of Pune and Ahmedabad.",
+    "label": "neutral"
+  },
+  {
+    "text": "The engineering firm submitted qualification bids for municipal water treatment EPC tenders.",
+    "label": "neutral"
+  },
+  {
+    "text": "The government conducted its scheduled fortnightly review of domestic natural gas allocation formulas.",
+    "label": "neutral"
+  },
+  {
+    "text": "The company's promoter group completed an inter-se transfer of shares through market block deals.",
+    "label": "neutral"
+  },
+  {
+    "text": "The power regulator initiated public hearings regarding retail electricity distribution tariff petitions.",
+    "label": "neutral"
+  },
+  {
+    "text": "The enterprise adopted updated International Financial Reporting Standards for lease accounting.",
+    "label": "neutral"
+  },
+  {
+    "text": "The annual report and notice of meeting were dispatched electronically to all registered equity holders.",
+    "label": "neutral"
+  },
+  {
+    "text": "Total raw material inventory levels remained comparable to the three-year seasonal average.",
+    "label": "neutral"
+  },
+  {
+    "text": "The company confirmed that the term of its chief financial officer will conclude on superannuation.",
+    "label": "neutral"
+  },
+  {
+    "text": "The commercial vehicle manufacturer unveiled concept platform designs at the biennial auto expo.",
+    "label": "neutral"
+  },
+  {
+    "text": "Wholesale price index data showed wholesale commodities inflation was unchanged month-on-month.",
+    "label": "neutral"
+  },
+  {
+    "text": "The company established a wholly owned trading subsidiary in Singapore to manage overseas logistics.",
+    "label": "neutral"
+  },
+  {
+    "text": "The chemical producer renewed its statutory pollution control board operating consents for three years.",
+    "label": "neutral"
+  },
+  {
+    "text": "The central bank announced that the currency in circulation expanded in line with seasonal trends.",
+    "label": "neutral"
+  },
+  {
+    "text": "The company held preliminary informal discussions with potential technology licensing partners.",
+    "label": "neutral"
+  },
+  {
+    "text": "The board noted the resignation of an independent director due to other professional commitments.",
+    "label": "neutral"
+  },
+  {
+    "text": "The equity shares commenced trading on ex-dividend terms on the designated settlement day.",
+    "label": "neutral"
+  },
+  {
+    "text": "The company's debt-to-equity ratio stood steady at 0.38x following scheduled term loan amortization.",
+    "label": "neutral"
+  },
+  {
+    "text": "The ministry of corporate affairs notified minor amendments to corporate filing disclosure rules.",
+    "label": "neutral"
+  },
+  {
+    "text": "The lender completed its annual disaster recovery and business continuity simulation drill.",
+    "label": "neutral"
+  },
+  {
+    "text": "The pharmaceutical firm filed an abbreviated new drug application with the regulatory agency.",
+    "label": "neutral"
+  },
+  {
+    "text": "The software firm participated in an industry standard interoperability working group meeting.",
+    "label": "neutral"
+  },
+  {
+    "text": "The company reported that its foreign exchange currency exposure remains fully hedged via forward contracts.",
+    "label": "neutral"
+  },
+  {
+    "text": "The national highway authority invited expressions of interest for road asset monetization packages.",
+    "label": "neutral"
+  },
+  {
+    "text": "The food products division introduced two regional flavor packaging variants across metro test markets.",
+    "label": "neutral"
+  },
+  {
+    "text": "The asset management company launched a passive exchange-traded fund tracking the NIFTY Next 50 index.",
+    "label": "neutral"
+  },
+  {
+    "text": "The board approved formal minutes of previous committee meetings and confirmed statutory secretarial compliance.",
+    "label": "neutral"
+  },
+  {
+    "text": "The company maintained its existing pricing structure across retail subscriptions for the upcoming quarter.",
+    "label": "neutral"
+  },
+  {
+    "text": "The energy distributor signed a power sale agreement with the state nodal agency at prevailing grid tariffs.",
+    "label": "neutral"
+  },
+  {
+    "text": "The corporate legal team completed filing of periodic trademark defense documentation in overseas jurisdictions.",
+    "label": "neutral"
+  },
+  {
+    "text": "The company confirmed that factory operations are continuing under standard operational protocols.",
+    "label": "neutral"
+  },
+  {
+    "text": "The commercial court adjourned the procedural hearing on the civil contract dispute to the next session.",
+    "label": "neutral"
+  },
+  {
+    "text": "The insurer confirmed that claims settlement ratios remained consistent with previous year levels.",
+    "label": "neutral"
+  },
+  {
+    "text": "The engineering company's order backlog duration stood at approximately 28 months of trailing revenues.",
+    "label": "neutral"
+  },
+  {
+    "text": "The annual vendor conference was attended by over 200 key domestic and global component suppliers.",
+    "label": "neutral"
+  }
+]

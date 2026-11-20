@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FinPulse AI — Financial News & Market Intelligence Platform</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace'],
+          },
+          colors: {
+            brand: {
+              50: '#EEF2FF',
+              500: '#6366F1',
+              600: '#4F46E5',
+              700: '#4338CA',
+              900: '#1E1B4B',
+            },
+            dark: {
+              950: '#070A12',
+              900: '#0B0F19',
+              850: '#0F172A',
+              800: '#1E293B',
+              700: '#334155',
+            },
+            gain: '#10B981',
+            loss: '#F43F5E',
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body { background-color: #070A12; color: #F1F5F9; font-family: 'Plus Jakarta Sans', sans-serif; }
+    .glass-panel { background: rgba(15, 23, 42, 0.75); backdrop-filter: blur(12px); border: 1px solid rgba(51, 65, 85, 0.4); }
+    .glass-card { background: rgba(15, 23, 42, 0.6); border: 1px solid rgba(51, 65, 85, 0.35); transition: all 0.2s ease; }
+    .glass-card:hover { border-color: rgba(99, 102, 241, 0.4); }
+    .active-nav { background: rgba(99, 102, 241, 0.15); color: #818CF8; border-color: rgba(99, 102, 241, 0.4); }
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: #070A12; }
+    ::-webkit-scrollbar-thumb { background: #334155; border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: #475569; }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col antialiased selection:bg-brand-600 selection:text-white">
+
+  <!-- TOP HEADER -->
+  <header class="sticky top-0 z-50 glass-panel border-b border-dark-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      <div class="flex items-center space-x-3">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-brand-600 to-indigo-400 flex items-center justify-center shadow-lg shadow-brand-500/20">
+          <i data-lucide="activity" class="w-6 h-6 text-white"></i>
+        </div>
+        <div>
+          <div class="flex items-center space-x-2">
+            <span class="text-xl font-extrabold tracking-tight bg-gradient-to-r from-white via-slate-200 to-indigo-300 bg-clip-text text-transparent">FinPulse AI</span>
+            <span class="text-[10px] font-mono px-2 py-0.5 rounded-full bg-brand-500/10 text-brand-400 border border-brand-500/20 font-bold">V2.0</span>
+          </div>
+          <p class="text-[10px] text-slate-400">Financial News & Market Intelligence Assistant</p>
+        </div>
+      </div>
+
+      <!-- Quick Ticker Search Bar -->
+      <div class="hidden md:flex items-center space-x-2 w-96 relative">
+        <i data-lucide="search" class="w-4 h-4 absolute left-3 text-slate-400"></i>
+        <input id="globalSearchInput" type="text" placeholder="Search NSE Symbol (e.g. RELIANCE, TCS, INFY)..."
+               class="w-full bg-dark-900/90 text-sm pl-9 pr-24 py-1.5 rounded-lg border border-dark-700 focus:outline-none focus:border-brand-500 focus:ring-1 focus:ring-brand-500 text-slate-200 placeholder-slate-500 transition-all font-mono">
+        <button onclick="handleSearchSubmit()" class="absolute right-1 px-2.5 py-1 text-xs bg-brand-600 hover:bg-brand-500 text-white font-medium rounded-md transition-colors">
+          Explore
+        </button>
+      </div>
+
+      <!-- Live Status & Mode Badge -->
+      <div class="flex items-center space-x-3">
+        <div id="telemetryBadge" class="flex items-center space-x-1.5 px-3 py-1 rounded-full bg-dark-900 border border-dark-700 text-xs text-slate-300 font-mono">
+          <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+          <span id="telemetryText">DEMO / SYNTHETIC</span>
+        </div>
+        <div class="text-xs text-slate-400 hidden lg:block font-mono" id="liveClock">18:30:00 IST</div>
+      </div>
+    </div>
+  </header>
+
+  <!-- MARKET BENCHMARK TICKER BAR -->
+  <div class="bg-dark-950 border-b border-dark-800/80 py-2 overflow-x-auto scrollbar-none">
+    <div id="benchmarkTickerContainer" class="max-w-7xl mx-auto px-4 flex space-x-6 items-center text-xs whitespace-nowrap">
+      <span class="text-slate-500 uppercase tracking-wider font-semibold text-[10px]">NSE Benchmarks:</span>
+      <div class="flex space-x-6" id="benchmarkList">
+        <div class="animate-pulse flex space-x-3 text-slate-500"><span>Loading benchmarks...</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- NAVIGATION TABS -->
+  <nav class="bg-dark-900/60 border-b border-dark-800">
+    <div class="max-w-7xl mx-auto px-4 flex space-x-1 overflow-x-auto py-2 text-sm font-medium">
+      <button onclick="switchTab('dashboard')" id="nav-dashboard" class="nav-btn px-3.5 py-2 rounded-lg flex items-center space-x-2 border border-transparent transition-all active-nav">
+        <i data-lucide="layout-dashboard" class="w-4 h-4"></i>
+        <span>Dashboard</span>
+      </button>
+      <button onclick="switchTab('explorer')" id="nav-explorer" class="nav-btn px-3.5 py-2 rounded-lg flex items-center space-x-2 border border-transparent transition-all text-slate-400 hover:text-white hover:bg-dark-800/50">
+        <i data-lucide="line-chart" class="w-4 h-4"></i>
+        <span>Stock Explorer</span>
+      </button>
+      <button onclick="switchTab('news')" id="nav-news" class="nav-btn px-3.5 py-2 rounded-lg flex items-center space-x-2 border border-transparent transition-all text-slate-400 hover:text-white hover:bg-dark-800/50">
+        <i data-lucide="newspaper" class="w-4 h-4"></i>
+        <span>News Intelligence</span>
+      </button>
+      <button onclick="switchTab('assistant')" id="nav-assistant" class="nav-btn px-3.5 py-2 rounded-lg flex items-center space-x-2 border border-transparent transition-all text-slate-400 hover:text-white hover:bg-dark-800/50">
+        <i data-lucide="bot" class="w-4 h-4"></i>
+        <span>AI Research Assistant (RAG)</span>
+      </button>
+      <button onclick="switchTab('comparison')" id="nav-comparison" class="nav-btn px-3.5 py-2 rounded-lg flex items-center space-x-2 border border-transparent transition-all text-slate-400 hover:text-white hover:bg-dark-800/50">
+        <i data-lucide="scale" class="w-4 h-4"></i>
+        <span>Multi-Stock Compare</span>
+      </button>
+      <button onclick="switchTab('portfolio')" id="nav-portfolio" class="nav-btn px-3.5 py-2 rounded-lg flex items-center space-x-2 border border-transparent transition-all text-slate-400 hover:text-white hover:bg-dark-800/50">
+        <i data-lucide="briefcase" class="w-4 h-4"></i>
+        <span>Portfolio Analytics</span>
+      </button>
+      <button onclick="switchTab('watchlist')" id="nav-watchlist" class="nav-btn px-3.5 py-2 rounded-lg flex items-center space-x-2 border border-transparent transition-all text-slate-400 hover:text-white hover:bg-dark-800/50">
+        <i data-lucide="star" class="w-4 h-4"></i>
+        <span>Watchlist</span>
+      </button>
+      <button onclick="switchTab('reports')" id="nav-reports" class="nav-btn px-3.5 py-2 rounded-lg flex items-center space-x-2 border border-transparent transition-all text-slate-400 hover:text-white hover:bg-dark-800/50">
+        <i data-lucide="file-text" class="w-4 h-4"></i>
+        <span>Research Dossiers</span>
+      </button>
+      <button onclick="switchTab('system')" id="nav-system" class="nav-btn px-3.5 py-2 rounded-lg flex items-center space-x-2 border border-transparent transition-all text-slate-400 hover:text-white hover:bg-dark-800/50">
+        <i data-lucide="shield-check" class="w-4 h-4"></i>
+        <span>System Status</span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- MAIN VIEWPORT CONTAINER -->
+  <main class="flex-1 max-w-7xl w-full mx-auto p-4 sm:p-6 lg:p-8 space-y-8">
+
+    <!-- TAB 1: DASHBOARD -->
+    <div id="tab-dashboard" class="space-y-6">
+      <!-- Welcome Hero Card -->
+      <div class="glass-card rounded-2xl p-6 bg-gradient-to-r from-dark-900 via-dark-850 to-indigo-950/30 border border-brand-500/20 relative overflow-hidden">
+        <div class="absolute -right-10 -bottom-10 w-64 h-64 bg-brand-500/10 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-4">
+          <div>
+            <div class="inline-flex items-center space-x-2 text-xs text-brand-400 font-semibold uppercase tracking-wider mb-2">
+              <i data-lucide="sparkles" class="w-3.5 h-3.5"></i>
+              <span>IBM SkillsBuild Generative AI & Cloud Computing Internship</span>
+            </div>
+            <h1 class="text-2xl sm:text-3xl font-extrabold tracking-tight text-white">NSE Market Intelligence & Financial Research Console</h1>
+            <p class="text-sm text-slate-300 max-w-2xl mt-1">
+              Real-time Indian equities analysis, FinBERT sentiment scoring, evidence-grounded RAG assistance, and portfolio risk management.
+            </p>
+          </div>
+          <div class="flex flex-wrap gap-2">
+            <button onclick="loadExplorerStock('RELIANCE.NS')" class="px-3 py-1.5 rounded-lg bg-dark-800 hover:bg-dark-700 text-xs font-mono font-medium border border-dark-700 text-slate-200">
+              RELIANCE
+            </button>
+            <button onclick="loadExplorerStock('TCS.NS')" class="px-3 py-1.5 rounded-lg bg-dark-800 hover:bg-dark-700 text-xs font-mono font-medium border border-dark-700 text-slate-200">
+              TCS
+            </button>
+            <button onclick="loadExplorerStock('HDFCBANK.NS')" class="px-3 py-1.5 rounded-lg bg-dark-800 hover:bg-dark-700 text-xs font-mono font-medium border border-dark-700 text-slate-200">
+              HDFCBANK
+            </button>
+            <button onclick="loadExplorerStock('INFY.NS')" class="px-3 py-1.5 rounded-lg bg-dark-800 hover:bg-dark-700 text-xs font-mono font-medium border border-dark-700 text-slate-200">
+              INFY
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Quick Metrics Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+        <div class="glass-card rounded-xl p-4">
+          <div class="flex justify-between items-center text-slate-400 text-xs font-medium">
+            <span>NIFTY 50 INDEX</span>
+            <i data-lucide="trending-up" class="w-4 h-4 text-emerald-400"></i>
+          </div>
+          <div class="text-2xl font-bold font-mono text-white mt-2" id="dashNiftyPrice">24,350.00</div>
+          <div class="text-xs text-emerald-400 font-mono mt-1 flex items-center space-x-1">
+            <span>+0.32%</span>
+            <span class="text-slate-500 font-sans">• Benchmark</span>
+          </div>
+        </div>
+        <div class="glass-card rounded-xl p-4">
+          <div class="flex justify-between items-center text-slate-400 text-xs font-medium">
+            <span>NEWS SENTIMENT PULSE</span>
+            <i data-lucide="gauge" class="w-4 h-4 text-brand-400"></i>
+          </div>
+          <div class="text-2xl font-bold font-mono text-emerald-400 mt-2" id="dashSentimentScore">+0.68</div>
+          <div class="text-xs text-slate-400 mt-1">Bullish tilt across 25 ingested stories</div>
+        </div>
+        <div class="glass-card rounded-xl p-4">
+          <div class="flex justify-between items-center text-slate-400 text-xs font-medium">
+            <span>EVIDENCE CITATION RATE</span>
+            <i data-lucide="check-circle" class="w-4 h-4 text-emerald-400"></i>
+          </div>
+          <div class="text-2xl font-bold font-mono text-white mt-2">100.0%</div>
+          <div class="text-xs text-slate-400 mt-1">Zero ungrounded hallucinations</div>
+        </div>
+        <div class="glass-card rounded-xl p-4">
+          <div class="flex justify-between items-center text-slate-400 text-xs font-medium">
+            <span>RAG RETRIEVAL SPEED</span>
+            <i data-lucide="zap" class="w-4 h-4 text-indigo-400"></i>
+          </div>
+          <div class="text-2xl font-bold font-mono text-white mt-2">0.34 ms</div>
+          <div class="text-xs text-slate-400 mt-1">Sub-millisecond BM25 ranking</div>
+        </div>
+      </div>
+
+      <!-- Dashboard Main Split: Chart & Headlines -->
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <!-- Main Market Chart -->
+        <div class="lg:col-span-2 glass-card rounded-2xl p-6">
+          <div class="flex items-center justify-between mb-4">
+            <div>
+              <h2 class="text-lg font-bold text-white flex items-center space-x-2">
+                <span id="dashChartSymbol">RELIANCE.NS</span>
+                <span class="text-xs font-normal text-slate-400" id="dashChartCompany">Reliance Industries Ltd.</span>
+              </h2>
+              <div class="text-2xl font-extrabold font-mono text-white mt-1" id="dashChartPrice">₹2,980.00</div>
+            </div>
+            <div class="flex space-x-2">
+              <button onclick="setDashChartPeriod('1mo')" class="px-2.5 py-1 text-xs rounded bg-dark-800 text-slate-300 hover:text-white font-mono">1M</button>
+              <button onclick="setDashChartPeriod('3mo')" class="px-2.5 py-1 text-xs rounded bg-dark-800 text-slate-300 hover:text-white font-mono">3M</button>
+              <button onclick="setDashChartPeriod('6mo')" class="px-2.5 py-1 text-xs rounded bg-brand-600 text-white font-mono font-medium">6M</button>
+            </div>
+          </div>
+          <div class="h-72 w-full">
+            <canvas id="dashMainChart"></canvas>
+          </div>
+          <div class="grid grid-cols-3 gap-2 mt-4 pt-4 border-t border-dark-800 text-center font-mono text-xs">
+            <div><span class="text-slate-500">RSI (14):</span> <span id="dashChartRSI" class="text-slate-200 font-bold">54.2</span></div>
+            <div><span class="text-slate-500">Vol (Ann):</span> <span id="dashChartVol" class="text-slate-200 font-bold">14.2%</span></div>
+            <div><span class="text-slate-500">Max DD:</span> <span id="dashChartDD" class="text-rose-400 font-bold">-7.8%</span></div>
+          </div>
+        </div>
+
+        <!-- Latest News & Sentiment Breakdown -->
+        <div class="glass-card rounded-2xl p-6 flex flex-col justify-between">
+          <div>
+            <div class="flex justify-between items-center mb-4">
+              <h3 class="text-base font-bold text-white flex items-center space-x-2">
+                <i data-lucide="newspaper" class="w-4 h-4 text-brand-400"></i>
+                <span>Live Intelligence Feed</span>
+              </h3>
+              <button onclick="switchTab('news')" class="text-xs text-brand-400 hover:underline">View All</button>
+            </div>
+            <div id="dashNewsList" class="space-y-3 overflow-y-auto max-h-80 pr-1">
+              <!-- Rendered via JS -->
+              <div class="animate-pulse text-xs text-slate-500">Loading intelligence...</div>
+            </div>
+          </div>
+          <div class="pt-4 mt-4 border-t border-dark-800">
+            <div class="text-xs font-semibold text-slate-400 mb-2">Sentiment Distribution</div>
+            <div class="w-full bg-dark-800 h-2.5 rounded-full overflow-hidden flex">
+              <div id="dashSentBarPos" class="bg-emerald-500 h-full" style="width: 70%"></div>
+              <div id="dashSentBarNeu" class="bg-slate-500 h-full" style="width: 20%"></div>
+              <div id="dashSentBarNeg" class="bg-rose-500 h-full" style="width: 10%"></div>
+            </div>
+            <div class="flex justify-between text-[11px] text-slate-400 mt-1 font-mono">
+              <span class="text-emerald-400" id="dashSentTextPos">Pos: 70%</span>
+              <span class="text-slate-400" id="dashSentTextNeu">Neu: 20%</span>
+              <span class="text-rose-400" id="dashSentTextNeg">Neg: 10%</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB 2: STOCK EXPLORER -->
+    <div id="tab-explorer" class="hidden space-y-6">
+      <div class="glass-card rounded-2xl p-6">
+        <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 border-b border-dark-800 pb-6">
+          <div>
+            <div class="flex items-center space-x-3">
+              <h2 class="text-2xl font-extrabold text-white font-mono" id="expSymbol">RELIANCE.NS</h2>
+              <span class="text-xs px-2.5 py-1 rounded bg-dark-800 text-slate-300 font-mono" id="expExchange">NSE: EQUITY</span>
+              <span class="text-xs px-2 py-0.5 rounded bg-brand-500/10 text-brand-400 border border-brand-500/20" id="expDataSource">Verified Synthetic Benchmark</span>
+            </div>
+            <p class="text-slate-400 text-sm mt-1" id="expCompanyName">Reliance Industries Limited</p>
+          </div>
+          <div class="flex items-center space-x-3">
+            <div class="text-right">
+              <div class="text-3xl font-extrabold font-mono text-white" id="expCurrentPrice">₹2,980.00</div>
+              <div class="text-sm font-mono text-emerald-400" id="expChangePercent">+₹35.40 (+1.20%)</div>
+            </div>
+            <button onclick="addToWatchlistCurrent()" class="p-2.5 rounded-xl bg-dark-800 hover:bg-dark-700 text-slate-300 hover:text-amber-400 border border-dark-700 transition-colors">
+              <i data-lucide="star" class="w-5 h-5"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- Technical Indicator Selector & Range -->
+        <div class="flex flex-wrap items-center justify-between gap-4 py-4">
+          <div class="flex flex-wrap gap-2 text-xs font-mono">
+            <button onclick="toggleIndicator('sma20')" id="ind-sma20" class="px-3 py-1.5 rounded-lg border border-dark-700 bg-dark-800 text-slate-300 hover:border-brand-500">SMA 20</button>
+            <button onclick="toggleIndicator('sma50')" id="ind-sma50" class="px-3 py-1.5 rounded-lg border border-dark-700 bg-dark-800 text-slate-300 hover:border-brand-500">SMA 50</button>
+            <button onclick="toggleIndicator('ema12')" id="ind-ema12" class="px-3 py-1.5 rounded-lg border border-dark-700 bg-dark-800 text-slate-300 hover:border-brand-500">EMA 12</button>
+            <button onclick="toggleIndicator('rsi')" id="ind-rsi" class="px-3 py-1.5 rounded-lg border border-dark-700 bg-dark-800 text-slate-300 hover:border-brand-500">RSI (14)</button>
+            <button onclick="toggleIndicator('bb')" id="ind-bb" class="px-3 py-1.5 rounded-lg border border-dark-700 bg-dark-800 text-slate-300 hover:border-brand-500">Bollinger Bands</button>
+          </div>
+          <div class="flex space-x-1 font-mono text-xs">
+            <button onclick="loadExplorerStockWithPeriod('1mo')" class="px-3 py-1.5 rounded bg-dark-800 hover:bg-dark-700 text-slate-300">1M</button>
+            <button onclick="loadExplorerStockWithPeriod('3mo')" class="px-3 py-1.5 rounded bg-dark-800 hover:bg-dark-700 text-slate-300">3M</button>
+            <button onclick="loadExplorerStockWithPeriod('6mo')" class="px-3 py-1.5 rounded bg-brand-600 text-white font-medium">6M</button>
+            <button onclick="loadExplorerStockWithPeriod('1y')" class="px-3 py-1.5 rounded bg-dark-800 hover:bg-dark-700 text-slate-300">1Y</button>
+          </div>
+        </div>
+
+        <!-- Explorer Interactive Chart -->
+        <div class="h-96 w-full mt-2">
+          <canvas id="explorerChart"></canvas>
+        </div>
+
+        <!-- Technical and Risk Metrics Grid -->
+        <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 mt-6 pt-6 border-t border-dark-800 font-mono text-xs">
+          <div class="p-3 bg-dark-900 rounded-xl border border-dark-800">
+            <span class="text-slate-500 block">52-Week High</span>
+            <span class="text-slate-200 font-bold text-sm" id="exp52wHigh">₹3,217.90</span>
+          </div>
+          <div class="p-3 bg-dark-900 rounded-xl border border-dark-800">
+            <span class="text-slate-500 block">52-Week Low</span>
+            <span class="text-slate-200 font-bold text-sm" id="exp52wLow">₹2,220.30</span>
+          </div>
+          <div class="p-3 bg-dark-900 rounded-xl border border-dark-800">
+            <span class="text-slate-500 block">Ann. Volatility</span>
+            <span class="text-slate-200 font-bold text-sm" id="expAnnVol">14.2%</span>
+          </div>
+          <div class="p-3 bg-dark-900 rounded-xl border border-dark-800">
+            <span class="text-slate-500 block">Max Drawdown</span>
+            <span class="text-rose-400 font-bold text-sm" id="expMaxDD">-7.8%</span>
+          </div>
+          <div class="p-3 bg-dark-900 rounded-xl border border-dark-800">
+            <span class="text-slate-500 block">Sharpe Est.</span>
+            <span class="text-slate-200 font-bold text-sm" id="expSharpe">1.82</span>
+          </div>
+          <div class="p-3 bg-dark-900 rounded-xl border border-dark-800">
+            <span class="text-slate-500 block">P/E Ratio</span>
+            <span class="text-slate-200 font-bold text-sm" id="expPE">26.8</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB 3: FINANCIAL NEWS INTELLIGENCE -->
+    <div id="tab-news" class="hidden space-y-6">
+      <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+        <div>
+          <h2 class="text-2xl font-extrabold text-white tracking-tight">Financial News Intelligence</h2>
+          <p class="text-slate-400 text-sm">Aggregated from Indian financial publications with deduplication and FinBERT sentiment labels.</p>
+        </div>
+        <div class="flex items-center space-x-2">
+          <select id="newsFilterSentiment" onchange="filterNews()" class="bg-dark-900 text-xs px-3 py-2 rounded-lg border border-dark-700 text-slate-300">
+            <option value="">All Sentiments</option>
+            <option value="positive">Positive Only</option>
+            <option value="negative">Negative Only</option>
+            <option value="neutral">Neutral Only</option>
+          </select>
+          <button onclick="refreshNews()" class="px-3 py-2 text-xs bg-brand-600 hover:bg-brand-500 text-white rounded-lg flex items-center space-x-1.5">
+            <i data-lucide="refresh-cw" class="w-3.5 h-3.5"></i>
+            <span>Refresh</span>
+          </button>
+        </div>
+      </div>
+
+      <div id="newsArticleContainer" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <!-- Rendered dynamically -->
+      </div>
+    </div>
+
+    <!-- TAB 4: AI RESEARCH ASSISTANT (RAG) -->
+    <div id="tab-assistant" class="hidden space-y-6">
+      <div class="glass-card rounded-2xl p-6">
+        <div class="flex items-center space-x-3 mb-4">
+          <div class="w-10 h-10 rounded-xl bg-brand-600/20 text-brand-400 flex items-center justify-center border border-brand-500/30">
+            <i data-lucide="bot" class="w-6 h-6"></i>
+          </div>
+          <div>
+            <h2 class="text-xl font-bold text-white">Retrieval-Augmented Research Assistant</h2>
+            <p class="text-xs text-slate-400">Strictly grounded on retrieved financial news with source attribution and anti-hallucination guardrails.</p>
+          </div>
+        </div>
+
+        <!-- Pre-set Suggested Queries -->
+        <div class="flex flex-wrap gap-2 mb-4">
+          <span class="text-xs text-slate-500 flex items-center">Suggested queries:</span>
+          <button onclick="setAssistantPrompt('What solar capacity was commissioned by Reliance Industries in Gujarat?')" class="text-xs px-2.5 py-1 rounded bg-dark-900 hover:bg-dark-800 text-slate-300 border border-dark-700">
+            Reliance Solar Expansion
+          </button>
+          <button onclick="setAssistantPrompt('What was the size of the European contract won by Tata Consultancy Services (TCS)?')" class="text-xs px-2.5 py-1 rounded bg-dark-900 hover:bg-dark-800 text-slate-300 border border-dark-700">
+            TCS European Deal
+          </button>
+          <button onclick="setAssistantPrompt('What did the RBI Monetary Policy Committee decide on repo rates?')" class="text-xs px-2.5 py-1 rounded bg-dark-900 hover:bg-dark-800 text-slate-300 border border-dark-700">
+            RBI Repo Rate Status
+          </button>
+          <button onclick="setAssistantPrompt('What is the reported asset quality and Gross NPA ratio for ICICI Bank?')" class="text-xs px-2.5 py-1 rounded bg-dark-900 hover:bg-dark-800 text-slate-300 border border-dark-700">
+            ICICI Bank NPA
+          </button>
+        </div>
+
+        <!-- Chat Input Form -->
+        <div class="flex gap-2 mb-6">
+          <input id="ragQueryInput" type="text" placeholder="Ask a financial research question grounded in news evidence..."
+                 class="flex-1 bg-dark-900 text-sm px-4 py-3 rounded-xl border border-dark-700 focus:outline-none focus:border-brand-500 text-slate-200">
+          <button onclick="executeRAGQuery()" id="btnSubmitRAG" class="px-5 py-3 bg-brand-600 hover:bg-brand-500 text-white text-sm font-semibold rounded-xl flex items-center space-x-2 transition-all">
+            <i data-lucide="send" class="w-4 h-4"></i>
+            <span>Submit</span>
+          </button>
+        </div>
+
+        <!-- Chat Output Card -->
+        <div id="ragResponseContainer" class="hidden space-y-4">
+          <div class="p-5 bg-dark-900/90 rounded-xl border border-dark-800">
+            <div class="flex justify-between items-center text-xs text-slate-400 mb-2 font-mono">
+              <span id="ragModelBadge" class="text-brand-400 font-semibold">FinPulse Grounded Synthesizer</span>
+              <span id="ragLatencyBadge">Latency: 0.34 ms</span>
+            </div>
+            <div id="ragAnswerText" class="text-sm text-slate-200 leading-relaxed prose prose-invert max-w-none">
+              <!-- Rendered markdown/text -->
+            </div>
+          </div>
+
+          <!-- Retrieved Citations Drawer -->
+          <div class="space-y-2">
+            <h4 class="text-xs font-bold text-slate-400 uppercase tracking-wider flex items-center space-x-2">
+              <i data-lucide="link" class="w-3.5 h-3.5"></i>
+              <span>Supporting Evidence & Citations</span>
+            </h4>
+            <div id="ragCitationsList" class="grid grid-cols-1 md:grid-cols-2 gap-3">
+              <!-- Rendered via JS -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB 5: MULTI-STOCK COMPARISON -->
+    <div id="tab-comparison" class="hidden space-y-6">
+      <div class="glass-card rounded-2xl p-6">
+        <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-6">
+          <div>
+            <h2 class="text-xl font-bold text-white">Multi-Stock Relative Return Comparison</h2>
+            <p class="text-xs text-slate-400">Normalized performance series (Base = 100) aligned across identical trading calendars.</p>
+          </div>
+          <div class="flex items-center space-x-2">
+            <input id="compareSymbolsInput" type="text" value="RELIANCE.NS,TCS.NS,INFY.NS" class="bg-dark-900 text-xs px-3 py-2 rounded-lg border border-dark-700 text-slate-200 font-mono">
+            <button onclick="refreshComparison()" class="px-3 py-2 bg-brand-600 hover:bg-brand-500 text-white text-xs font-medium rounded-lg">Compare</button>
+          </div>
+        </div>
+        <div class="h-80 w-full mb-6">
+          <canvas id="comparisonChart"></canvas>
+        </div>
+        <div id="comparisonMetricsTableContainer" class="overflow-x-auto">
+          <!-- Rendered table -->
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB 6: PORTFOLIO ANALYTICS -->
+    <div id="tab-portfolio" class="hidden space-y-6">
+      <div class="flex justify-between items-center">
+        <div>
+          <h2 class="text-2xl font-extrabold text-white tracking-tight">Manual Portfolio Analytics</h2>
+          <p class="text-slate-400 text-sm">Real-time valuation, unrealized P&L, asset weights, and benchmark risk comparison.</p>
+        </div>
+        <button onclick="openAddHoldingModal()" class="px-4 py-2 bg-brand-600 hover:bg-brand-500 text-white text-xs font-semibold rounded-xl flex items-center space-x-2">
+          <i data-lucide="plus" class="w-4 h-4"></i>
+          <span>Add Position</span>
+        </button>
+      </div>
+
+      <!-- Portfolio Summary Cards -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4" id="portfolioSummaryCards">
+        <!-- Rendered via JS -->
+      </div>
+
+      <!-- Holdings Table -->
+      <div class="glass-card rounded-2xl p-6">
+        <h3 class="text-lg font-bold text-white mb-4">Current Holdings</h3>
+        <div class="overflow-x-auto">
+          <table class="w-full text-left text-xs text-slate-300 font-mono">
+            <thead class="text-slate-500 uppercase border-b border-dark-800">
+              <tr>
+                <th class="py-3 px-2">Symbol</th>
+                <th class="py-3 px-2">Qty</th>
+                <th class="py-3 px-2">Avg Buy</th>
+                <th class="py-3 px-2">Current</th>
+                <th class="py-3 px-2">Current Value</th>
+                <th class="py-3 px-2">Unrealized P&L</th>
+                <th class="py-3 px-2">Weight</th>
+                <th class="py-3 px-2 text-right">Action</th>
+              </tr>
+            </thead>
+            <tbody id="holdingsTableBody">
+              <!-- Rendered dynamically -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB 7: WATCHLIST -->
+    <div id="tab-watchlist" class="hidden space-y-6">
+      <div class="flex justify-between items-center">
+        <div>
+          <h2 class="text-2xl font-extrabold text-white tracking-tight">Market Watchlist</h2>
+          <p class="text-slate-400 text-sm">Monitored NSE equities with live price feeds.</p>
+        </div>
+        <div class="flex space-x-2">
+          <input id="addWatchlistInput" type="text" placeholder="Add symbol (e.g. INFY)..." class="bg-dark-900 text-xs px-3 py-1.5 rounded-lg border border-dark-700 text-slate-200 font-mono">
+          <button onclick="addWatchlistSymbol()" class="px-3 py-1.5 bg-brand-600 hover:bg-brand-500 text-white text-xs font-semibold rounded-lg">Add</button>
+        </div>
+      </div>
+      <div class="glass-card rounded-2xl p-6">
+        <div class="overflow-x-auto">
+          <table class="w-full text-left text-xs text-slate-300 font-mono">
+            <thead class="text-slate-500 uppercase border-b border-dark-800">
+              <tr>
+                <th class="py-3 px-2">Symbol</th>
+                <th class="py-3 px-2">Company</th>
+                <th class="py-3 px-2">Current Price</th>
+                <th class="py-3 px-2">Day Change</th>
+                <th class="py-3 px-2">Day Range</th>
+                <th class="py-3 px-2 text-right">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="watchlistTableBody">
+              <!-- Rendered dynamically -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB 8: RESEARCH REPORTS -->
+    <div id="tab-reports" class="hidden space-y-6">
+      <div class="glass-card rounded-2xl p-6">
+        <div class="max-w-xl">
+          <h2 class="text-xl font-bold text-white">Generate Equity Research Dossier</h2>
+          <p class="text-xs text-slate-400 mt-1">Generates an institutional 11-section report combining technical indicators, news sentiment, risk analysis, and download in Word (.docx) format.</p>
+          <div class="flex space-x-2 mt-4">
+            <input id="reportSymbolInput" type="text" value="RELIANCE.NS" class="bg-dark-900 text-sm px-4 py-2 rounded-xl border border-dark-700 text-slate-200 font-mono">
+            <button onclick="generateReport()" id="btnGenReport" class="px-4 py-2 bg-brand-600 hover:bg-brand-500 text-white text-xs font-bold rounded-xl flex items-center space-x-2">
+              <i data-lucide="file-down" class="w-4 h-4"></i>
+              <span>Generate Dossier</span>
+            </button>
+          </div>
+        </div>
+
+        <div id="reportOutputContainer" class="hidden mt-8 pt-6 border-t border-dark-800 space-y-6">
+          <div class="flex justify-between items-center">
+            <h3 class="text-lg font-bold text-white" id="repTitle">Research Dossier</h3>
+            <a id="repDownloadLink" href="#" class="px-3 py-1.5 bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-semibold rounded-lg flex items-center space-x-1.5">
+              <i data-lucide="download" class="w-3.5 h-3.5"></i>
+              <span>Download .DOCX</span>
+            </a>
+          </div>
+          <div id="repSectionsList" class="space-y-4">
+            <!-- Rendered dynamically -->
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB 9: SYSTEM STATUS -->
+    <div id="tab-system" class="hidden space-y-6">
+      <div class="glass-card rounded-2xl p-6">
+        <h2 class="text-xl font-bold text-white mb-4">Architecture Telemetry & Health Checks</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="systemHealthGrid">
+          <!-- Rendered dynamically -->
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- ADD HOLDING MODAL -->
+  <div id="addHoldingModal" class="hidden fixed inset-0 z-50 bg-black/70 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="glass-card bg-dark-900 rounded-2xl max-w-md w-full p-6 border border-dark-700 space-y-4">
+      <div class="flex justify-between items-center">
+        <h3 class="text-lg font-bold text-white">Add Portfolio Position</h3>
+        <button onclick="closeAddHoldingModal()" class="text-slate-400 hover:text-white"><i data-lucide="x" class="w-5 h-5"></i></button>
+      </div>
+      <div class="space-y-3 text-xs">
+        <div>
+          <label class="block text-slate-400 mb-1">Symbol</label>
+          <input id="holdSym" type="text" placeholder="e.g. INFY.NS" class="w-full bg-dark-800 text-slate-200 px-3 py-2 rounded-lg border border-dark-700 font-mono">
+        </div>
+        <div>
+          <label class="block text-slate-400 mb-1">Quantity</label>
+          <input id="holdQty" type="number" step="any" placeholder="10" class="w-full bg-dark-800 text-slate-200 px-3 py-2 rounded-lg border border-dark-700 font-mono">
+        </div>
+        <div>
+          <label class="block text-slate-400 mb-1">Buy Price (₹)</label>
+          <input id="holdPrice" type="number" step="any" placeholder="1850" class="w-full bg-dark-800 text-slate-200 px-3 py-2 rounded-lg border border-dark-700 font-mono">
+        </div>
+        <div>
+          <label class="block text-slate-400 mb-1">Notes</label>
+          <input id="holdNotes" type="text" placeholder="Long-term core position" class="w-full bg-dark-800 text-slate-200 px-3 py-2 rounded-lg border border-dark-700">
+        </div>
+      </div>
+      <div class="flex justify-end space-x-2 pt-2">
+        <button onclick="closeAddHoldingModal()" class="px-4 py-2 bg-dark-800 hover:bg-dark-700 text-slate-300 rounded-lg text-xs">Cancel</button>
+        <button onclick="submitNewHolding()" class="px-4 py-2 bg-brand-600 hover:bg-brand-500 text-white font-semibold rounded-lg text-xs">Add Position</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="border-t border-dark-800 py-6 text-center text-xs text-slate-500 font-mono">
+    <div class="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row justify-between items-center gap-2">
+      <div>FinPulse AI V2.0 • IBM SkillsBuild Generative AI & Cloud Computing Internship</div>
+      <div>National Institute of Technology Delhi • Ashish Ranjan (231210027)</div>
+    </div>
+  </footer>
+
+  <!-- FRONTEND CLIENT LOGIC SCRIPT -->
+  <script src="/static/app.js"></script>
+</body>
+</html>
