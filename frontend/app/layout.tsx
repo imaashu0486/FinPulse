@@ -2,8 +2,8 @@ import './globals.css';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'FinPulse AI — Financial News & Market Intelligence Platform',
-  description: 'AI-Powered Financial News & Market Intelligence Assistant for Indian Stock Market (NSE)',
+  title: 'FinPulse AI — Ask Better Questions. Understand Financial Markets.',
+  description: 'An Explainable Generative AI Financial Research Assistant Using Retrieval-Augmented Generation and Cloud Computing',
 };
 
 export default function RootLayout({

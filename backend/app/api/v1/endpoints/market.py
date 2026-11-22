@@ -14,8 +14,23 @@ from app.services.market_data.market_service import (
     market_service,
     MarketDataUnavailableException,
 )
+from app.services.market_data.catalog import search_catalog, get_sectors
 
 router = APIRouter()
+
+@router.get("/search")
+def search_instruments(
+    query: str = Query("", description="Company name, symbol, or keyword"),
+    sector: Optional[str] = Query(None, description="Optional sector filter"),
+    limit: int = Query(15, ge=1, le=50, description="Max results")
+) -> List[Dict[str, Any]]:
+    """Dynamic global search across Indian equities & indices with autocomplete and sector filtering."""
+    return search_catalog(query=query, sector=sector, limit=limit)
+
+@router.get("/sectors")
+def list_market_sectors() -> List[str]:
+    """Retrieves unique list of market sectors present in the instrument catalog."""
+    return get_sectors()
 
 @router.get("/session", response_model=MarketSessionStatus)
 def get_market_session():

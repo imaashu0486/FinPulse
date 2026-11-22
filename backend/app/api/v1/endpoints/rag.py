@@ -12,3 +12,12 @@ def query_rag_assistant(req: RAGChatRequest):
         symbol=req.symbol,
         top_k=req.top_k
     )
+
+@router.post("/diagnostics")
+def get_rag_diagnostics(req: RAGChatRequest):
+    """Provides full step-by-step explainable diagnostics for the Explainable RAG Research Lab."""
+    return rag_service.diagnose_query(
+        query=req.query,
+        symbol=req.symbol,
+        top_k=req.top_k
+    )

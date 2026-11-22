@@ -142,3 +142,29 @@ export async function fetchSystemHealth() {
   if (!res.ok) throw new Error('Failed to fetch system health');
   return res.json();
 }
+
+export async function searchInstruments(query: string = '', sector?: string, limit: number = 15) {
+  const params = new URLSearchParams();
+  if (query) params.append('query', query);
+  if (sector && sector !== 'All') params.append('sector', sector);
+  params.append('limit', String(limit));
+  const res = await fetch(`${API_BASE}/market/search?${params.toString()}`);
+  if (!res.ok) throw new Error('Failed to search instruments');
+  return res.json();
+}
+
+export async function fetchMarketSectors() {
+  const res = await fetch(`${API_BASE}/market/sectors`);
+  if (!res.ok) throw new Error('Failed to fetch market sectors');
+  return res.json();
+}
+
+export async function fetchRAGDiagnostics(params: { query: string; symbol?: string; top_k?: number }) {
+  const res = await fetch(`${API_BASE}/rag/diagnostics`, {
+    method: 'POST',
+    headers: getHeaders(),
+    body: JSON.stringify(params),
+  });
+  if (!res.ok) throw new Error('Failed to fetch RAG diagnostics');
+  return res.json();
+}

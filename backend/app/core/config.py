@@ -5,7 +5,7 @@ from pydantic import Field, field_validator
 
 class Settings(BaseSettings):
     PROJECT_NAME: str = "FinPulse AI"
-    VERSION: str = "4.0.0"
+    VERSION: str = "5.0.0"
     ENVIRONMENT: str = "development"
     DEBUG: bool = True
     API_PREFIX: str = "/api/v1"
