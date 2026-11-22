@@ -80,15 +80,34 @@ class MarketDataService:
         return self.upstox
 
     def _normalize_symbol(self, symbol: str) -> str:
+        # Common symbol translations & aliases for Indian equities
+        TICKER_ALIASES = {
+            "ASTER": "ASTERDM.NS",
+            "ASTER.NS": "ASTERDM.NS",
+            "ASTERDM": "ASTERDM.NS",
+            "NIFTY": "^NSEI",
+            "NIFTY50": "^NSEI",
+            "NIFTY 50": "^NSEI",
+            "BANKNIFTY": "^NSEBANK",
+            "NIFTYBANK": "^NSEBANK",
+            "CNXIT": "^CNXIT",
+            "NIFTYIT": "^CNXIT",
+        }
+
         # Truncate at common SQL injection, semicolon, quote, or comment delimiters
         clean_head = re.split(r"['\";\-\s]", symbol)[0].strip().upper()
         s = re.sub(r"[^A-Za-z0-9_\.\^]", "", clean_head)
         if not s:
             s = "^NSEI"
+
+        if s in TICKER_ALIASES:
+            return TICKER_ALIASES[s]
+
         # Default Indian stocks to .NS if not specified and not a benchmark index
         if not s.startswith("^") and "." not in s:
             s = f"{s}.NS"
-        return s
+
+        return TICKER_ALIASES.get(s, s)
 
     def get_stock_history(self, symbol: str, period: str = "6mo") -> StockHistoryResponse:
         norm_sym = self._normalize_symbol(symbol)

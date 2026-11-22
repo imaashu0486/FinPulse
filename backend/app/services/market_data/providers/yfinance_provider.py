@@ -38,6 +38,9 @@ class YahooFinanceProvider(BaseMarketDataProvider):
     def validate_ohlcv(self, df: pd.DataFrame) -> pd.DataFrame:
         if df.empty:
             return df
+        # Flatten MultiIndex column names if returned by newer yfinance versions
+        if isinstance(df.columns, pd.MultiIndex):
+            df.columns = df.columns.get_level_values(0)
         req = ["Open", "High", "Low", "Close", "Volume"]
         for col in req:
             if col not in df.columns:
@@ -46,12 +49,9 @@ class YahooFinanceProvider(BaseMarketDataProvider):
         for col in req:
             cleaned[col] = pd.to_numeric(cleaned[col], errors="coerce")
         cleaned = cleaned.dropna(subset=req)
+        # Verify valid price relationships: High >= Low, Volume >= 0
         valid_mask = (
             (cleaned["High"] >= cleaned["Low"]) &
-            (cleaned["High"] >= cleaned["Open"] * 0.99) &
-            (cleaned["High"] >= cleaned["Close"] * 0.99) &
-            (cleaned["Low"] <= cleaned["Open"] * 1.01) &
-            (cleaned["Low"] <= cleaned["Close"] * 1.01) &
             (cleaned["Volume"] >= 0)
         )
         return cleaned[valid_mask]
@@ -116,6 +116,9 @@ class YahooFinanceProvider(BaseMarketDataProvider):
         df = ticker.history(period=period, auto_adjust=True, timeout=10)
         if df.empty or len(df) < 2:
             raise ValueError(f"Yahoo Finance returned no historical candles for {symbol}")
+
+        if isinstance(df.columns, pd.MultiIndex):
+            df.columns = df.columns.get_level_values(0)
 
         df = self.validate_ohlcv(df)
         dates = [d.strftime("%Y-%m-%d") for d in df.index]

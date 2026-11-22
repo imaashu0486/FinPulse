@@ -40,8 +40,14 @@ export async function fetchBenchmarks() {
 
 export async function fetchStockHistory(symbol: string, period = '6mo') {
   const res = await fetch(`${API_BASE}/market/stock/${symbol}?period=${period}`);
-  if (!res.ok) throw new Error(`Failed to fetch history for ${symbol}`);
-  return res.json();
+  const data = await res.json().catch(() => null);
+  if (!res.ok) {
+    if (data && data.status === 'unavailable') {
+      return data;
+    }
+    throw new Error(data?.detail || `Failed to fetch history for ${symbol}`);
+  }
+  return data;
 }
 
 export async function fetchNews(params: { symbol?: string; query?: string; source?: string; sentiment?: string; limit?: number }) {

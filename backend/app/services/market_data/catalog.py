@@ -85,6 +85,7 @@ INSTRUMENT_CATALOG: List[Dict[str, Any]] = [
     {"symbol": "LUPIN.NS", "name": "Lupin Ltd.", "sector": "Healthcare & Pharma", "exchange": "NSE", "isin": "INE326A01037"},
     {"symbol": "AUROPHARMA.NS", "name": "Aurobindo Pharma Ltd.", "sector": "Healthcare & Pharma", "exchange": "NSE", "isin": "INE406A01037"},
     {"symbol": "BIOCON.NS", "name": "Biocon Ltd.", "sector": "Healthcare & Pharma", "exchange": "NSE", "isin": "INE376G01013"},
+    {"symbol": "ASTERDM.NS", "name": "Aster DM Healthcare Ltd.", "sector": "Healthcare & Pharma", "exchange": "NSE", "isin": "INE914M01019"},
 
     # Infrastructure, Materials & Industrial
     {"symbol": "LT.NS", "name": "Larsen & Toubro Ltd.", "sector": "Infrastructure & Capital Goods", "exchange": "NSE", "isin": "INE018A01030"},

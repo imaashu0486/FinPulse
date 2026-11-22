@@ -118,6 +118,90 @@ class NewsIntelligenceService:
             
         return articles
 
+    def _extract_search_keywords(self, query: Optional[str], symbol: Optional[str]) -> str:
+        """
+        Translates conversational user queries and ticker symbols into high-yield
+        keywords optimized for Google News RSS retrieval.
+        """
+        # If symbol provided, resolve to company name from catalog if possible
+        company_hint = ""
+        if symbol:
+            norm_sym = symbol.strip().upper()
+            from app.services.market_data.catalog import INSTRUMENT_CATALOG
+            for item in INSTRUMENT_CATALOG:
+                if item["symbol"].upper() == norm_sym or item["symbol"].upper() == f"{norm_sym}.NS":
+                    # Clean company name (e.g. 'Reliance Industries Ltd.' -> 'Reliance Industries')
+                    clean_name = re.sub(r"(?i)\s+(ltd\.?|limited|corp\.?|corporation|inc\.?)\s*$", "", item["name"]).strip()
+                    company_hint = clean_name
+                    break
+            if not company_hint:
+                clean_sym = norm_sym.replace(".NS", "").replace("^", "")
+                company_hint = f"{clean_sym} share"
+
+        if not query:
+            return company_hint or "Indian Stock Market NSE NIFTY"
+
+        # Check for known major companies/sectors in query text
+        q_lower = query.lower()
+        matched_entities = []
+        entity_map = {
+            "reliance": "Reliance Industries",
+            "hdfc": "HDFC Bank",
+            "tcs": "TCS Tata Consultancy",
+            "infosys": "Infosys",
+            "infy": "Infosys",
+            "icici": "ICICI Bank",
+            "sbi": "State Bank of India SBI",
+            "state bank": "State Bank of India",
+            "tata motors": "Tata Motors",
+            "maruti": "Maruti Suzuki",
+            "wipro": "Wipro",
+            "bharti": "Bharti Airtel",
+            "airtel": "Bharti Airtel",
+            "it sector": "Indian IT sector tech stocks",
+            "banking sector": "Indian banking sector banks",
+            "pharma": "Indian pharma healthcare stocks",
+            "auto sector": "Indian auto automobile stocks",
+            "nifty": "NIFTY 50 Indian market",
+            "sensex": "BSE Sensex Indian market",
+            "aster": "Aster DM Healthcare",
+        }
+        for k, v in entity_map.items():
+            if k in q_lower:
+                matched_entities.append(v)
+
+        if matched_entities:
+            return " ".join(matched_entities[:2])
+
+        if company_hint:
+            return company_hint
+
+        # Strip conversational filler to retain core financial keywords
+        filler_patterns = [
+            r"(?i)^(what\s+are\s+the\s+latest\s+(available\s+)?developments\s+(affecting|regarding|in)\s+)",
+            r"(?i)^(summarize\s+recent\s+)",
+            r"(?i)^(why\s+has\s+the\s+)",
+            r"(?i)^(explain\s+how\s+)",
+            r"(?i)^(tell\s+me\s+about\s+)",
+            r"(?i)^(what\s+evidence\s+supports\s+(the\s+latest\s+reported\s+developments\s+in\s+)?)",
+            r"(?i)^(compare\s+the\s+available\s+news\s+sentiment\s+around\s+)",
+            r"(?i)\s+(been\s+in\s+the\s+news\??)$",
+            r"(?i)\s+(financial\s+headlines\??)$",
+            r"(?i)\s+(affect\s+financial\s+companies\??)$",
+        ]
+        cleaned_q = query
+        for pat in filler_patterns:
+            cleaned_q = re.sub(pat, "", cleaned_q).strip()
+
+        # Remove trailing question mark and punctuation
+        cleaned_q = re.sub(r"[?!.,;:]+$", "", cleaned_q).strip()
+
+        # If substantial query remains, append Indian market context if helpful
+        if len(cleaned_q) > 2:
+            return f"{cleaned_q} India stock market"
+
+        return "Indian Stock Market NSE NIFTY"
+
     def get_news(
         self,
         symbol: Optional[str] = None,
@@ -137,7 +221,7 @@ class NewsIntelligenceService:
         is_synthetic = False
         message = None
 
-        search_term = query or (f"{symbol} share stock price" if symbol else "Indian Stock Market NSE NIFTY")
+        search_term = self._extract_search_keywords(query, symbol)
         
         # In normal mode (DEMO_MODE=False), fetch real RSS headlines
         if not (settings.DEMO_MODE and settings.ALLOW_SYNTHETIC_DATA):
